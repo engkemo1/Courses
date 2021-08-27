@@ -1,0 +1,141 @@
+const Map<String,String> Arabic = {
+  'WelcomeTo':'مرحبا بك في',
+  'AppName':'ترووم',
+  'RecordedCourses' : 'الدورات',
+  'UpComingLiveClasses':'فصول البث المباشر القادمه',
+  'More':'المزيد',
+  'AllRecordedCourses' : 'الدورات',
+  'AllLiveClasses':'فصول البث المباشر',
+  'AllPrivateClasses':'فصول خاصة',
+  'NewCourses':'احدث الدورات',
+  'Teacher':'مدرب',
+  'Student':'طالب',
+  'Class':'فصل',
+  'Course':'دورة',
+  'Teachers':'المدربين',
+  'Home':'الصفحة الرئيسية',
+  'MyProfile':'الملف الشخصي',
+  'AboutUs':'نبذة عن الشركة',
+  'ContactUs':'تواصل معنا',
+  'Language':'اللغة',
+  'Arabic':'العربية',
+  'English':'الانجليزية',
+  'LogOut':'تسجيل الخروج',
+  'TakePlacementTest':'قم بإجراء اختبار تحديد المستوى',
+  'TestYourEnglishSkills':'إختبار مهاراتك في اللغة الإنجليزية',
+
+  //TODO My Profile Data
+  'MyProfileData':'الملف الشخصى',
+  'MyCourses':'الدورات',
+  'MyClasses':'الفصول',
+  'MyPrivateClasses':'الفصول الخاصة',
+  'Courses':'الدورات',
+  'Classes':'الفصول',
+  'EditProfileData':'تعديل البيانات',
+  'Edit':'تعديل',
+  'Show':'عرض',
+  'TeacherName':'المدرب',
+  'CourseName':'اسم الكورس',
+  'WeeksNumber':'عدد الآسابيع',
+  'LessonsNumber':'عدد الحصص',
+  'NextLesson':'الحصة القادمة',
+
+  //TODO About Us
+  'WhoWeAre':'من نحن',
+  'OurNumbers':'ارقامنا',
+  'OurEmails':'البريد الالكتروني',
+  'Address':'العنوان',
+  'Whatsapp':'واتساب',
+  'Facebook':'فيس بوك',
+  'Twitter':'تويتر',
+  'LinkedIn':'لينكد ان',
+  'Instagram':'انستجرام',
+  'YouTube':'يوتيوب',
+
+  //TODO AllRecodedCourses
+  'WeFound':'لقد وجدنا ',
+  'CoursesForYou':'دورات لك',
+
+  //TODO All Instructors
+  'TeachersForYou':'مدرب لك',
+
+  //TODO Course Details
+  'BuyNow':'اشتري الآن',
+  // 'EgyptianPound':'جنيه مصري',
+  'CourseChapters':'الوحدات',
+  'ChapterQuiz':'امتحان الوحدة',
+  'CourseOverView':'نظرة عامة على الدورة',
+  'Requirements':'متطلبات الدورة',
+  'WhatYouWillLearn':'ماذا سوف ستتعلم',
+  'DownLoadMaterial':'تحميل ملفات الوحدة',
+  'Summary':'الملخص',
+  'LessonExam':'الامتحان',
+  'NoNextLessonAvailable': 'لا يوجد دروس اخري',
+  'Objectives':'الاهداف',
+  'Lesson':'الدرس : ',
+  'DownloadMaterial':'تحميل المواد : ',
+  'Next':'التالي',
+
+  //TODO Private Courses
+  'ChooseTeacher':'إختر مدرسك :- ',
+  'ChooseCourse':'إختر الدورات :- ',
+  'EnterAppropriateDate':'أدخل التاريخ المناسب :- ',
+  'Saturday':'السبت :- ',
+  'Sunday':'الأحد :- ',
+  'Monday':'الإثنين :- ',
+  'Tuesday':'الثلاثاء :- ',
+  'Wednesday':'الأربعاء :- ',
+  'Thursday':'الخميس :- ',
+  'Friday':'الجمعه :- ',
+  'Note':'ملاحظات :- ',
+  'Ok':'تم',
+
+  //TODO Login
+  'SignIn':'تسجيل الدخول',
+  'LogIn':'تسجيل الدخول',
+  'LogInNow':'تسجيل الدخول الآن',
+
+  //TODO Register
+  'SignUp':'إنشاء حساب جديد',
+  'RegisterNow':'سجل الان',
+  'Register':'سجل',
+
+  //TODO SnackBars
+  'NoLessonsAvailable':'لا توجد دروس متاحة',
+  'YouShouldPassTheChapterExamFirst':'يجب عليك اجتياز امتحان الوحدة أولاً',
+  'SuccessfullyDownloadedMaterial':'تم تحميل ملفات الوحدة بنجاح',
+  'SomethingWentWrongDownloadAgain':'حدث خطا ما حمل مجددا',
+  'PleaseLoginFirst':'يجب عليك تسجيل الدخول أولا.',
+  'MessageSentSuccessfully':'تم إرسال الرسالة بنجاح',
+  'YouShouldPassTheLessonExamFirst':'يجب عليك اجتياز اختبار الدرس أولاً',
+  'AllDataRequired':'كافة البيانات مطلوبة',
+  'FailedToPassLessonExam':'فشلت في اجتياز اختبار الدرس',
+  'SuccessfullyPassExam':'تم اجتياز الامتحان بنجاح',
+  'SuccessfullyPassChapterExam':'تم اجتياز امتحان الفصل بنجاح',
+  'FailedPassChapterExam':'فشلت في اجتياز اختبار الفصل',
+  'RequestSentSuccessfully':'تم إرسال الطلب بنجاح',
+  'LoggingSuccess':'تم تسجيل الدخول بنجاح',
+  'VerifiedSuccess':'تم تاكيد الرقم بنجاح',
+  'RegistrationSuccess':'تم إنشاء حساب جديد ',
+  'DataUpdatedSuccessfully':'تم تحديث البيانات بنجاح',
+
+  //TODO Chapter Exam
+  'Exam':'امتحان',
+  'SubmitAnswers':'تاكيد الاجابات',
+  'Q':'Q',
+
+  //TODO Contact Us
+  'YourName':'الاسم',
+  'Message':'الرسالة',
+  'Send':'ارسال',
+
+  //TODO Users Data
+  'Email':'البريد الإلكتروني',
+  'Password':'كلمة المرور',
+  'ConfirmPassword':'تأكيد كلمة المرور',
+  'DoNotHaveAccount':"ليس لديك حساب؟",
+  'HaveAccount':'هل لديك حساب بالفعل؟',
+  'FullName':'الاسم الكامل',
+  'PhoneNumber':'رقم الهاتف',
+
+};

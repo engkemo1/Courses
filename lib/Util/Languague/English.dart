@@ -1,0 +1,141 @@
+const Map<String,String> English = {
+  'WelcomeTo':'Welcome To',
+  'AppName':'TROOM',
+  'RecordedCourses' : 'Our Courses',
+  'UpComingLiveClasses':'Upcoming Live Classes',
+  'More':'More',
+  'AllRecordedCourses' : 'Courses',
+  'AllLiveClasses':'Live Classes',
+  'NewCourses':'New Courses',
+  'AllPrivateClasses':'Private Live Classes',
+  'Teacher':'Trainer',
+  'Student':'Student',
+  'Class':'Live Class',
+  'Course':'Course',
+  'Teachers':'Our Trainers',
+  'Home':'Home',
+  'MyProfile':'My Profile',
+  'AboutUs':'About Us',
+  'ContactUs':'Contact Us',
+  'Language':'Language',
+  'Arabic':'Arabic',
+  'English':'English',
+  'LogOut':'Log Out',
+  'TakePlacementTest':'إجراء اختبار تحديد المستوى',
+  'TestYourEnglishSkills':'Test Your English Skills',
+
+  //TODO My Profile Data
+  'MyProfileData':'My Profile Data',
+  'MyCourses':'My Recorded Courses',
+  'MyClasses':'My Live Classes',
+  'MyPrivateClasses':'Private Classes',
+  'Courses':'Courses',
+  'Classes':'Live Classes',
+  'EditProfileData':'Edit Profile Data',
+  'Edit':'Edit',
+  'Show':'Show',
+  'TeacherName':'Trainer Name',
+  'CourseName':'Course Name',
+  'WeeksNumber':'Weeks Number',
+  'LessonsNumber':'Lessons Number',
+  'NextLesson':'Next Lesson',
+
+  //TODO About Us
+  'WhoWeAre':'Who We Are',
+  'OurNumbers':'Our Numbers',
+  'OurEmails':'Our Emails',
+  'Address':'Address',
+  'Whatsapp':'Whatsapp',
+  'Facebook':'Facebook',
+  'Twitter':'Twitter',
+  'LinkedIn':'LinkedIn',
+  'Instagram':'Instagram',
+  'YouTube':'YouTube',
+
+  //TODO AllRecodedCourses
+  'WeFound':'We Found',
+  'CoursesForYou':'For You.',
+
+  //TODO All Instructors
+  'TeachersForYou':'Trainer For You.',
+
+  //TODO Course Details
+  'BuyNow':'Buy Now',
+  // 'EgyptianPound':'EGP',
+  'CourseChapters':'Course Chapters',
+  'ChapterQuiz':'Chapter Quiz',
+  'CourseOverView':'Course OverView',
+  'Requirements':'Requirements',
+  'WhatYouWillLearn':'What You Will Learn',
+  'DownLoadMaterial':'DownLoad Material',
+  'Summary':'Summary',
+  'LessonExam':'Lesson Exam',
+  'NoNextLessonAvailable': 'No Next Lesson Available',
+  'Objectives':'Objectives',
+  'Lesson':'Lesson : ',
+  'DownloadMaterial':'DownloadMaterial : ',
+  'Next':'Next',
+
+  //TODO Private Courses
+  'ChooseTeacher':'Choose Teacher :- ',
+  'ChooseCourse':'Choose Course :- ',
+  'EnterAppropriateDate':'Enter Appropriate Date :- ',
+  'Saturday':'Saturday :- ',
+  'Sunday':'Sunday :- ',
+  'Monday':'Monday :- ',
+  'Tuesday':'Tuesday :- ',
+  'Wednesday':'Wednesday :- ',
+  'Thursday':'Thursday :- ',
+  'Friday':'Friday :- ',
+  'Note':'Note :- ',
+  'Ok':'Ok',
+
+  //TODO Login
+  'SignIn':'Sign In',
+  'LogIn':'LogIn',
+  'LogInNow':'Login Now',
+
+  //TODO Register
+  'SignUp':'Sign Up',
+  'RegisterNow':'Register Now',
+  'Register':'Register',
+
+  //TODO SnackBars
+  'NoLessonsAvailable':'No Lessons Available',
+  'YouShouldPassTheChapterExamFirst':'You should pass the chapter exam First',
+  'SuccessfullyDownloadedMaterial':'Successfully Downloaded Material',
+  'SomethingWentWrongDownloadAgain':'Something went Wrong Download again',
+  'PleaseLoginFirst':'You must be Logged In First',
+  'MessageSentSuccessfully':'Message Sent Successfully',
+  'YouShouldPassTheLessonExamFirst':'You should pass the Lesson exam First',
+  'AllDataRequired':'All Data Required',
+  'FailedToPassLessonExam':'Failed to  pass Lesson exam',
+  'SuccessfullyPassExam':'Successfully Pass Exam',
+  'SuccessfullyPassChapterExam':'Successfully Pass Chapter Exam',
+  'FailedPassChapterExam':'Failed to  pass Chapter exam',
+  'RequestSentSuccessfully':'Request Sent Successfully',
+  'LoggingSuccess':'Logging Success',
+  'VerifiedSuccess':'Verified Success',
+  'RegistrationSuccess':'Registration Success',
+  'DataUpdatedSuccessfully':'Data Updated Successfully',
+
+  //TODO Chapter Exam
+  'Exam':'Exam',
+  'SubmitAnswers':'Submit Answers',
+  'Q':'Q',
+
+  //TODO Contact Us
+  'YourName':'Your Name',
+  'Message':'Message',
+  'Send':'Send',
+
+  //TODO Users Data
+  'Email':'Email',
+  'Password':'Password',
+  'ConfirmPassword':'Confirm Password',
+  'DoNotHaveAccount':"Don't have an account ?",
+  'HaveAccount':'Already have an account ?',
+  'FullName':'Full Name',
+  'PhoneNumber':'Phone Number',
+
+};
