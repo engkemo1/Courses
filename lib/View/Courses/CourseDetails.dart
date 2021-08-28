@@ -648,7 +648,282 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 itemCount: _courseDetailsCont.courseDetailsResData.chapters.length,),
                             ),
                           ),
-*/
+*/       Container(
+                            color: ConstStyles.WhiteColor,
+                            // margin: EdgeInsets.only(left: localW * 0.1,right: localW * 0.1,top: localH * 0.01),
+                            margin: EdgeInsets.only(top: localH * 0.01),
+                            padding: EdgeInsets.only(left: localW *0.01,right: localW *0.01,top: localH * 0.02),
+                            height: MediaQuery.of(context).size.height*0.40 ,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                //TODO Course Chapter
+                                SizedBox(
+                                  height: localH * 0.05,
+                                  child: CustomText(
+                                    txt: '${'CourseChapters'.tr} : ',
+                                    txtColor: ConstStyles.DarkColor,
+                                    fontSize: localW * 0.07,
+                                  ),
+                                ),
+                                SizedBox(height: localH * 0.02,),
+
+                                //TODO Course
+                                GetBuilder<CourseDetailsCont>(
+                                    builder: (_){
+                                      if(widget._courseDetailsCont.courseDetailsResData.chapters != null
+                                          && widget._courseDetailsCont.courseDetailsResData.chapters.length > 0 ){
+                                        return Expanded(
+                                          child: ListView(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.only(left: localW * 0.03,right: localW * 0.03),
+                                                child: ExpansionPanelList(
+                                                  dividerColor: ConstStyles.WhiteColor,
+                                                  expansionCallback: (index,isExpanded){
+                                                    widget._courseDetailsCont.changeExpandedView(index);
+                                                  },
+                                                  children: widget._courseDetailsCont.myExpandedItem.map((myItem item) {
+                                                    return ExpansionPanel(
+                                                      backgroundColor: Colors.orange,
+                                                      headerBuilder: (context,isExpanded){
+                                                        return Container(
+                                                            margin: EdgeInsets.only(left: localW * 0.02,right: localW * 0.02,top: localW*0.02),
+                                                            child: CustomText(txt: item.header,txtColor: ConstStyles.WhiteColor,));
+                                                      },
+                                                      body: Container(
+                                                        color: ConstStyles.WhiteColor,
+                                                        height: localH * 0.30,
+                                                        child: ListView.builder(
+                                                            itemCount: item.body.length,
+                                                            itemBuilder: (context,lessonIndex){
+                                                              return SizedBox(
+                                                                height: localH * 0.30,
+                                                                child: Column(
+                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                                  children: [
+                                                                    //TODO Lesson Name
+                                                                    SizedBox(
+                                                                      height: localH * 0.05,
+                                                                      child: InkWell(
+                                                                        onTap: (){
+                                                                          if(widget._courseDetailsCont.lessonDataResData.prevTest != null){
+                                                                            Get.snackbar('', '',backgroundColor: ConstStyles.DarkColor,
+                                                                                colorText: ConstStyles.WhiteColor,
+                                                                                titleText: CustomText(txt: 'YouShouldPassTheChapterExamFirst'.tr,
+                                                                                  txtAlign: TextAlign.center,));
+                                                                          }else{
+
+                                                                            widget._courseDetailsCont.getLessonData(item.body[lessonIndex].key, widget._courseDetailsCont.token);
+                                                                          }
+                                                                        },
+                                                                        child: Row(
+                                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                                          children: [
+                                                                            Icon(Icons.play_arrow,color: ConstStyles.BlueColor,),
+                                                                            CustomText(
+                                                                              txt: 'Lesson'.tr,
+                                                                              txtColor: ConstStyles.TextColor,
+                                                                            ),
+                                                                            CustomText(
+                                                                              txt: item.body[lessonIndex].name,
+                                                                              txtColor: ConstStyles.TextColor,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    //TODO Download Material
+                                                                    SizedBox(
+                                                                      height: localH * 0.05,
+                                                                      child: InkWell(
+                                                                        onTap: ()async{
+                                                                          print("111111111111111111111111111${widget._courseDetailsCont.lessonDataResData.material}");
+
+                                                                          if(await widget._courseDetailsCont.downloadMaterial(widget._courseDetailsCont.lessonDataResData.material)){
+                                                                            Get.snackbar('', '',backgroundColor: ConstStyles.DarkColor,
+                                                                                colorText: ConstStyles.WhiteColor,
+                                                                                titleText: CustomText(txt: 'SuccessfullyDownloadedMaterial'.tr,
+                                                                                  txtAlign: TextAlign.center,));
+                                                                          }else{
+                                                                            Get.snackbar('', '',backgroundColor: ConstStyles.DarkColor,
+                                                                                colorText: Colors.red,
+                                                                                titleText: CustomText(txt: 'SomethingWentWrongDownloadAgain'.tr,
+                                                                                  txtAlign: TextAlign.center,));
+                                                                          }
+                                                                        },
+                                                                        child: Row(
+                                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                                          children: [
+                                                                            Icon(Icons.download_sharp,color: ConstStyles.BlueColor,),
+                                                                            CustomText(
+                                                                              txt: 'DownloadMaterial'.tr,
+                                                                              txtColor: ConstStyles.TextColor,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+
+                                                                    //TODO Next Lesson
+                                                                    SizedBox(
+                                                                      height: localH * 0.05,
+                                                                      child: Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                                        children: [
+                                                                          GetBuilder<CourseDetailsCont>(
+                                                                              builder: (_){
+                                                                                return Padding(
+                                                                                  padding:EdgeInsets.only(left:10),
+                                                                                  child:OrangeBtn(
+                                                                                    txtColor: ConstStyles.WhiteColor,
+                                                                                    text: 'Next'.tr,
+                                                                                    btnColor: ConstStyles.BlueColor,
+                                                                                    onClick: (){
+                                                                                      //TODO Show Summary
+                                                                                      showDialog(
+                                                                                          barrierDismissible: false,
+                                                                                          context: context,
+                                                                                          builder: (context){
+                                                                                            return GetBuilder<ModalHudCont>(
+                                                                                              builder: (_){
+                                                                                                return ModalProgressHUD(
+                                                                                                  inAsyncCall: widget._courseDetailsCont.modalHudController.isLoading,
+                                                                                                  child: GetBuilder<CourseDetailsCont>(
+                                                                                                    builder: (_){
+                                                                                                      //TODO Dialog
+                                                                                                      return AlertDialog(
+                                                                                                        content: Container(
+                                                                                                          height:localH,
+                                                                                                          width : localW,
+                                                                                                          child: Center(
+                                                                                                            child: ListView(
+                                                                                                              children: [
+                                                                                                                Row(
+                                                                                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                                                                                  children: [
+                                                                                                                    InkWell(
+                                                                                                                        onTap: (){
+                                                                                                                          Get.back();
+                                                                                                                        },
+                                                                                                                        child: Icon(Icons.close,color: ConstStyles.DarkColor,)),
+                                                                                                                  ],
+                                                                                                                ),
+                                                                                                                CustomText(txt: 'Summary'.tr,txtColor: ConstStyles.OrangeColor,fontWeight: FontWeight.bold,fontSize: localW * 0.06,),
+                                                                                                                Divider(
+                                                                                                                  thickness: 1,
+                                                                                                                  color: ConstStyles.OrangeColor,
+                                                                                                                ),
+
+                                                                                                                Html(data: widget._courseDetailsCont.lessonDataResData.summary == null ? ' ' :widget._courseDetailsCont.lessonDataResData.summary ,),
+                                                                                                                GetBuilder<CourseDetailsCont>(
+                                                                                                                    builder: (_){
+                                                                                                                      print(' GetBuilder Check Lesson Closed = ${widget._courseDetailsCont.lessonDataResData.lessonClosed}');
+
+                                                                                                                      if(!widget._courseDetailsCont.lessonDataResData.endQuizLesson){
+                                                                                                                        return OrangeBtn(text: 'LessonExam'.tr, onClick: (){
+                                                                                                                          //TODO Open Lesson Exam
+                                                                                                                          print('LessonExam Key:: ${widget._courseDetailsCont.lessonDataResData.key}');
+                                                                                                                          Get.back();
+                                                                                                                          widget._courseDetailsCont.getCourseQuizLesson(widget._courseDetailsCont.lessonDataResData.key, widget._courseDetailsCont.token);
+                                                                                                                        });
+                                                                                                                      }else{
+                                                                                                                        return OrangeBtn(text: 'NextLesson'.tr, onClick: (){
+                                                                                                                          //TODO Open Next Lesson
+                                                                                                                          if(widget._courseDetailsCont.lessonDataResData.nextLesson != null){
+                                                                                                                            Get.back();
+                                                                                                                            widget._courseDetailsCont.getLessonData(widget._courseDetailsCont.lessonDataResData.nextLesson, widget._courseDetailsCont.token);
+                                                                                                                          }else{
+                                                                                                                            Get.back();
+                                                                                                                            Get.snackbar('', '',backgroundColor: ConstStyles.DarkColor,
+                                                                                                                                colorText: ConstStyles.WhiteColor,
+                                                                                                                                titleText: CustomText(txt: 'NoNextLessonAvailable'.tr,
+                                                                                                                                  txtAlign: TextAlign.center,));
+                                                                                                                          }
+                                                                                                                        });
+                                                                                                                      }
+                                                                                                                    }),
+                                                                                                              ],
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      );
+                                                                                                    },),
+                                                                                                );
+                                                                                              },);
+                                                                                          });
+                                                                                    },
+                                                                                  )
+                                                                                );
+                                                                              }),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+
+                                                                    Divider(
+                                                                      thickness: 1,
+                                                                      color: ConstStyles.DarkColor,
+                                                                    ),
+
+                                                                    //TODO Chapter Quiz Btn
+                                                                    SizedBox(
+                                                                      height: localH * 0.05,
+                                                                      child: GetBuilder<CourseDetailsCont>(
+                                                                          builder: (_){
+                                                                            if( widget._courseDetailsCont.courseDetailsResData.chapters[lessonIndex] != null &&
+                                                                                widget._courseDetailsCont.courseDetailsResData.chapters[lessonIndex].quiz){
+                                                                              return OrangeBtn(text: 'ChapterQuiz'.tr, onClick: (){
+                                                                                widget._courseDetailsCont.getCourseQuizChapter(
+                                                                                    widget._courseDetailsCont.courseDetailsResData.chapters[lessonIndex].key,
+                                                                                    widget._courseDetailsCont.token,
+                                                                                    widget._courseDetailsCont.courseDetailsResData.chapters[lessonIndex].name);
+
+                                                                              },btnColor: ConstStyles.BlueColor,);
+                                                                            }else{
+                                                                              return Container();
+                                                                            }
+                                                                          }),
+                                                                    ),
+
+                                                                    Container(
+                                                                      margin: EdgeInsets.only(left: localW *0.1,right: localW * 0.1),
+                                                                      child: Divider(
+                                                                        thickness: 2,
+                                                                        color: ConstStyles.DarkColor,
+                                                                      ),
+                                                                    ),
+
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            }),
+                                                      ),
+                                                      isExpanded: item.isExpanded,
+                                                    );
+                                                  }).toList(),
+
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      }
+                                      else{
+                                        return Container(
+                                          margin: EdgeInsets.only(top: localH *0.1,bottom: localH *0.1),
+                                          child: Center(child: CustomText(txt:'NoLessonsAvailable'.tr,txtColor: ConstStyles.TextColor,fontSize: localW*0.05,txtAlign: TextAlign.center,)),
+                                        );
+                                      }
+                                    }),
+
+
+                              ],
+                            ),
+                          ),
+
 
                           //TODO Lesson Objectives
                           Container(
@@ -978,278 +1253,6 @@ class _CourseDetailsState extends State<CourseDetails> {
                                   return LogoContainer();
                                 }
                               },
-                            ),
-                          ),
-                          Container(
-                            color: ConstStyles.WhiteColor,
-                            // margin: EdgeInsets.only(left: localW * 0.1,right: localW * 0.1,top: localH * 0.01),
-                            margin: EdgeInsets.only(top: localH * 0.01),
-                            padding: EdgeInsets.only(left: localW *0.01,right: localW *0.01,top: localH * 0.02),
-                            height: MediaQuery.of(context).size.height * 0.5+200,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-
-                                //TODO Course Chapter
-                                SizedBox(
-                                  height: localH * 0.05,
-                                  child: CustomText(
-                                    txt: '${'CourseChapters'.tr} : ',
-                                    txtColor: ConstStyles.DarkColor,
-                                    fontSize: localW * 0.07,
-                                  ),
-                                ),
-                                SizedBox(height: localH * 0.02,),
-
-                                //TODO Course
-                                GetBuilder<CourseDetailsCont>(
-                                    builder: (_){
-                                      if(widget._courseDetailsCont.courseDetailsResData.chapters != null
-                                          && widget._courseDetailsCont.courseDetailsResData.chapters.length > 0 ){
-                                        return Expanded(
-                                          child: ListView(
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.only(left: localW * 0.03,right: localW * 0.03),
-                                                child: ExpansionPanelList(
-                                                  dividerColor: ConstStyles.WhiteColor,
-                                                  expansionCallback: (index,isExpanded){
-                                                    widget._courseDetailsCont.changeExpandedView(index);
-                                                  },
-                                                  children: widget._courseDetailsCont.myExpandedItem.map((myItem item) {
-                                                    return ExpansionPanel(
-                                                      backgroundColor: Colors.grey,
-                                                      headerBuilder: (context,isExpanded){
-                                                        return Container(
-                                                            margin: EdgeInsets.only(left: localW * 0.02,right: localW * 0.02,top: localW*0.02),
-                                                            child: CustomText(txt: item.header,txtColor: ConstStyles.WhiteColor,));
-                                                      },
-                                                      body: Container(
-                                                        color: ConstStyles.WhiteColor,
-                                                        height: localH * 0.30,
-                                                        child: ListView.builder(
-                                                            itemCount: item.body.length,
-                                                            itemBuilder: (context,lessonIndex){
-                                                              return SizedBox(
-                                                                height: localH * 0.30,
-                                                                child: Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                  children: [
-                                                                    //TODO Lesson Name
-                                                                    SizedBox(
-                                                                      height: localH * 0.05,
-                                                                      child: InkWell(
-                                                                        onTap: (){
-                                                                          if(widget._courseDetailsCont.lessonDataResData.prevTest != null){
-                                                                            Get.snackbar('', '',backgroundColor: ConstStyles.DarkColor,
-                                                                                colorText: ConstStyles.WhiteColor,
-                                                                                titleText: CustomText(txt: 'YouShouldPassTheChapterExamFirst'.tr,
-                                                                                  txtAlign: TextAlign.center,));
-                                                                          }else{
-
-                                                                            widget._courseDetailsCont.getLessonData(item.body[lessonIndex].key, widget._courseDetailsCont.token);
-                                                                          }
-                                                                        },
-                                                                        child: Row(
-                                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                                          children: [
-                                                                            Icon(Icons.play_arrow,color: ConstStyles.BlueColor,),
-                                                                            CustomText(
-                                                                              txt: 'Lesson'.tr,
-                                                                              txtColor: ConstStyles.TextColor,
-                                                                            ),
-                                                                            CustomText(
-                                                                              txt: item.body[lessonIndex].name,
-                                                                              txtColor: ConstStyles.TextColor,
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    //TODO Download Material
-                                                                    SizedBox(
-                                                                      height: localH * 0.05,
-                                                                      child: InkWell(
-                                                                        onTap: ()async{
-                                                                          print("111111111111111111111111111${widget._courseDetailsCont.lessonDataResData.material}");
-
-                                                                          if(await widget._courseDetailsCont.downloadMaterial(widget._courseDetailsCont.lessonDataResData.material)){
-                                                                            Get.snackbar('', '',backgroundColor: ConstStyles.DarkColor,
-                                                                                colorText: ConstStyles.WhiteColor,
-                                                                                titleText: CustomText(txt: 'SuccessfullyDownloadedMaterial'.tr,
-                                                                                  txtAlign: TextAlign.center,));
-                                                                          }else{
-                                                                            Get.snackbar('', '',backgroundColor: ConstStyles.DarkColor,
-                                                                                colorText: Colors.red,
-                                                                                titleText: CustomText(txt: 'SomethingWentWrongDownloadAgain'.tr,
-                                                                                  txtAlign: TextAlign.center,));
-                                                                          }
-                                                                        },
-                                                                        child: Row(
-                                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                                          children: [
-                                                                            Icon(Icons.download_sharp,color: ConstStyles.BlueColor,),
-                                                                            CustomText(
-                                                                              txt: 'DownloadMaterial'.tr,
-                                                                              txtColor: ConstStyles.TextColor,
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-
-                                                                    //TODO Next Lesson
-                                                                    SizedBox(
-                                                                      height: localH * 0.05,
-                                                                      child: Row(
-                                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                                        children: [
-                                                                          GetBuilder<CourseDetailsCont>(
-                                                                              builder: (_){
-                                                                                return OrangeBtn(
-                                                                                  txtColor: ConstStyles.WhiteColor,
-                                                                                  text: 'Next'.tr,
-                                                                                  btnColor: Colors.red,
-                                                                                  onClick: (){
-                                                                                    //TODO Show Summary
-                                                                                    showDialog(
-                                                                                        barrierDismissible: false,
-                                                                                        context: context,
-                                                                                        builder: (context){
-                                                                                          return GetBuilder<ModalHudCont>(
-                                                                                            builder: (_){
-                                                                                              return ModalProgressHUD(
-                                                                                                inAsyncCall: widget._courseDetailsCont.modalHudController.isLoading,
-                                                                                                child: GetBuilder<CourseDetailsCont>(
-                                                                                                  builder: (_){
-                                                                                                    //TODO Dialog
-                                                                                                    return AlertDialog(
-                                                                                                      content: Container(
-                                                                                                        height:localH,
-                                                                                                        width : localW,
-                                                                                                        child: Center(
-                                                                                                          child: ListView(
-                                                                                                            children: [
-                                                                                                              Row(
-                                                                                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                                                                                children: [
-                                                                                                                  InkWell(
-                                                                                                                      onTap: (){
-                                                                                                                        Get.back();
-                                                                                                                      },
-                                                                                                                      child: Icon(Icons.close,color: ConstStyles.DarkColor,)),
-                                                                                                                ],
-                                                                                                              ),
-                                                                                                              CustomText(txt: 'Summary'.tr,txtColor: ConstStyles.OrangeColor,fontWeight: FontWeight.bold,fontSize: localW * 0.06,),
-                                                                                                              Divider(
-                                                                                                                thickness: 1,
-                                                                                                                color: ConstStyles.OrangeColor,
-                                                                                                              ),
-
-                                                                                                              Html(data: widget._courseDetailsCont.lessonDataResData.summary == null ? ' ' :widget._courseDetailsCont.lessonDataResData.summary ,),
-                                                                                                              GetBuilder<CourseDetailsCont>(
-                                                                                                                  builder: (_){
-                                                                                                                    print(' GetBuilder Check Lesson Closed = ${widget._courseDetailsCont.lessonDataResData.lessonClosed}');
-
-                                                                                                                    if(!widget._courseDetailsCont.lessonDataResData.endQuizLesson){
-                                                                                                                      return OrangeBtn(text: 'LessonExam'.tr, onClick: (){
-                                                                                                                        //TODO Open Lesson Exam
-                                                                                                                        print('LessonExam Key:: ${widget._courseDetailsCont.lessonDataResData.key}');
-                                                                                                                        Get.back();
-                                                                                                                        widget._courseDetailsCont.getCourseQuizLesson(widget._courseDetailsCont.lessonDataResData.key, widget._courseDetailsCont.token);
-                                                                                                                      });
-                                                                                                                    }else{
-                                                                                                                      return OrangeBtn(text: 'NextLesson'.tr, onClick: (){
-                                                                                                                        //TODO Open Next Lesson
-                                                                                                                        if(widget._courseDetailsCont.lessonDataResData.nextLesson != null){
-                                                                                                                          Get.back();
-                                                                                                                          widget._courseDetailsCont.getLessonData(widget._courseDetailsCont.lessonDataResData.nextLesson, widget._courseDetailsCont.token);
-                                                                                                                        }else{
-                                                                                                                          Get.back();
-                                                                                                                          Get.snackbar('', '',backgroundColor: ConstStyles.DarkColor,
-                                                                                                                              colorText: ConstStyles.WhiteColor,
-                                                                                                                              titleText: CustomText(txt: 'NoNextLessonAvailable'.tr,
-                                                                                                                                txtAlign: TextAlign.center,));
-                                                                                                                        }
-                                                                                                                      });
-                                                                                                                    }
-                                                                                                                  }),
-                                                                                                            ],
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    );
-                                                                                                  },),
-                                                                                              );
-                                                                                            },);
-                                                                                        });
-                                                                                  },
-                                                                                );
-                                                                              }),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-
-                                                                    Divider(
-                                                                      thickness: 1,
-                                                                      color: ConstStyles.DarkColor,
-                                                                    ),
-
-                                                                    //TODO Chapter Quiz Btn
-                                                                    SizedBox(
-                                                                      height: localH * 0.05,
-                                                                      child: GetBuilder<CourseDetailsCont>(
-                                                                          builder: (_){
-                                                                            if( widget._courseDetailsCont.courseDetailsResData.chapters[lessonIndex] != null &&
-                                                                                widget._courseDetailsCont.courseDetailsResData.chapters[lessonIndex].quiz){
-                                                                              return OrangeBtn(text: 'ChapterQuiz'.tr, onClick: (){
-                                                                                widget._courseDetailsCont.getCourseQuizChapter(
-                                                                                    widget._courseDetailsCont.courseDetailsResData.chapters[lessonIndex].key,
-                                                                                    widget._courseDetailsCont.token,
-                                                                                    widget._courseDetailsCont.courseDetailsResData.chapters[lessonIndex].name);
-
-                                                                              },btnColor: ConstStyles.BlueColor,);
-                                                                            }else{
-                                                                              return Container();
-                                                                            }
-                                                                          }),
-                                                                    ),
-
-                                                                    Container(
-                                                                      margin: EdgeInsets.only(left: localW *0.1,right: localW * 0.1),
-                                                                      child: Divider(
-                                                                        thickness: 2,
-                                                                        color: ConstStyles.DarkColor,
-                                                                      ),
-                                                                    ),
-
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            }),
-                                                      ),
-                                                      isExpanded: item.isExpanded,
-                                                    );
-                                                  }).toList(),
-
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      }
-                                      else{
-                                        return Container(
-                                          margin: EdgeInsets.only(top: localH *0.1,bottom: localH *0.1),
-                                          child: Center(child: CustomText(txt:'NoLessonsAvailable'.tr,txtColor: ConstStyles.TextColor,fontSize: localW*0.05,txtAlign: TextAlign.center,)),
-                                        );
-                                      }
-                                    }),
-
-
-                              ],
                             ),
                           ),
 

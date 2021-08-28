@@ -33,6 +33,8 @@ import 'package:troom/View/PlacementTest.dart';
 import 'package:video_player/video_player.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+import 'StudentProfile/StudentProfile.dart';
+
 class Home extends GetWidget<HomeCont> {
   static const Id = 'HomeScreen';
   String LOGD = 'HomeScreen';
@@ -63,17 +65,15 @@ class Home extends GetWidget<HomeCont> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
+                        Column(
                           children: [
+
                             CustomText(
-                                txt: 'مرحبا بك',txtColor: Colors.black,
-                            ),
-                            SizedBox(width: 4,),
-                            CustomText(
-                              txt: '${_cont.studProfResData.name == null
-                                  ?"في"
-                                  : _cont.studProfResData.name}'.tr,
+                              txt: _cont.studProfResData.name == null
+                                  ?"مرحبا بك في "
+                                  :'مرحبا بك\n${_cont.studProfResData.name}'.tr,
                                 txtColor: ConstStyles.BlackColor,
+                              fontSize: 12,
                             )
                           ],
                         )
@@ -83,14 +83,18 @@ class Home extends GetWidget<HomeCont> {
                     SizedBox(width: 10,),
                     SizedBox(
                       width: 40,
-                      child: _cont.studProfResData.image != null ? ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: FadeInImage.memoryNetwork(
-                          placeholder: kTransparentImage,
-                          image: EndPoints.ImageUrl + _cont
-                              .studProfResData.image,
-                        )
-                      ) :   SizedBox(
+                      child: _cont.studProfResData.image != null ?GestureDetector(
+                        onTap: (){
+Navigator.push(context, MaterialPageRoute(builder: (_)=>StudentProfile()));
+                        },
+                        child:  ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: FadeInImage.memoryNetwork(
+                            placeholder: kTransparentImage,
+                            image: EndPoints.ImageUrl + _cont
+                                .studProfResData.image,
+                          )
+                      ) ,):   SizedBox(
                           width: width * 0.22,
                           height: appBarH,
                           child: Container(
@@ -1678,8 +1682,7 @@ class Home extends GetWidget<HomeCont> {
                               return LogoContainer();
                             }
                           },
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
+
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                         ),

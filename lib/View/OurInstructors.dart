@@ -111,7 +111,7 @@ class OurInstructor extends StatelessWidget {
                                                 MaterialPageRoute(
                                                     builder: (_) => InstructorScreen(
                                                       t: snapShot
-                                                          .data[index],
+                                                          .data[index]
                                                     )));
                                           },
                                           child: Container(

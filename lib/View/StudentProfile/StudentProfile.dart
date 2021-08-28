@@ -30,467 +30,568 @@ class StudentProfile extends GetView<StudProfCont> {
   Widget build(BuildContext context) {
     var appBarH = AppBar().preferredSize.height;
     return Scaffold(
-      appBar: AppBar( title: Image.asset('assets/images/logo.png',fit: BoxFit.contain,height: appBarH,),
+      appBar: AppBar(
+        title: Image.asset(
+          'assets/images/logo.png',
+          fit: BoxFit.contain,
+          height: appBarH,
+        ),
         backgroundColor: ConstStyles.WhiteColor,
         iconTheme: IconThemeData(color: ConstStyles.DarkColor),
       ),
       drawer: MainDrawer(),
       body: SafeArea(
-        child: GetBuilder<ModalHudCont>(builder: (_){
-          return ModalProgressHUD(
-            inAsyncCall: _cont.modalHudController.isLoading,
-            child: GetBuilder<StudProfCont>(
-              builder: (_){
-                return Container(
-                    child: LayoutBuilder(
-                      builder: (context,cons){
-                        var localW = cons.maxWidth;
-                        var localH = cons.maxHeight;
-                        return GetBuilder<StudProfCont>(
-                            builder: (_){
-                              return ListView(
+        child: GetBuilder<ModalHudCont>(
+          builder: (_) {
+            return ModalProgressHUD(
+              inAsyncCall: _cont.modalHudController.isLoading,
+              child: GetBuilder<StudProfCont>(
+                builder: (_) {
+                  return Container(child: LayoutBuilder(
+                    builder: (context, cons) {
+                      var localW = cons.maxWidth;
+                      var localH = cons.maxHeight;
+                      return GetBuilder<StudProfCont>(builder: (_) {
+                        return ListView(
+                          children: [
+                            //TODO Bar
+                            Container(
+                              height: localH * .35,
+                              width: localW,
+                              padding: EdgeInsets.only(
+                                  top: localH * 0.01, left: 20, right: 20),
+                              color: ConstStyles.DarkColor,
+                              child: Column(
                                 children: [
-                                  //TODO Bar
-                                  Container(
-
-                                    height: localH * .35,
-                                    width: localW,
-                                    padding: EdgeInsets.only(top: localH * 0.01,left: 30,right: 30),
-                                    color: ConstStyles.DarkColor,
-                                    child: Column(
-                                      children: [
-
-                                        //TODO Profile Image
-                                        SizedBox(
-                                          width: localW * 0.25,
-                                          child: _cont.studProfResData.image != null ? ClipRRect(
-                                            borderRadius: BorderRadius.circular(50),
+                                  //TODO Profile Image
+                                  SizedBox(
+                                    width: localW * 0.25,
+                                    child: _cont.studProfResData.image != null
+                                        ? ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
                                             child: FadeInImage.memoryNetwork(
                                               placeholder: kTransparentImage,
-                                              image: EndPoints.ImageUrl + _cont
-                                                  .studProfResData.image,
-                                            )
-                                          ) :   SizedBox(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width * 0.30,
-                                              height: appBarH,
-                                              child: Container(
-                                                child: LogoContainer(),
-                                              )
-                                          ),
+                                              image: EndPoints.ImageUrl +
+                                                  _cont.studProfResData.image,
+                                            ))
+                                        : SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.30,
+                                            height: appBarH,
+                                            child: Container(
+                                              child: LogoContainer(),
+                                            )),
+                                  ),
+                                  SizedBox(
+                                    height: localH * 0.02,
+                                  ),
 
-                                        ),
-                                        SizedBox(height: localH * 0.02,),
+                                  //TODO User Name
+                                  CustomText(
+                                    txt: _cont.studProfResData.name == null
+                                        ? ''
+                                        : _cont.studProfResData.name,
+                                  ),
 
-                                        //TODO User Name
-                                        CustomText(
-                                          txt: _cont.studProfResData.name == null ? '' : _cont.studProfResData.name,
-                                        ),
+                                  SizedBox(
+                                    height: localH * 0.04,
+                                  ),
 
-                                        SizedBox(height: localH * 0.02,),
-
-                                        //TODO My profile
+                                  //TODO My profile
 
                                   Container(
-
+                                    padding: EdgeInsets.all(5),
                                     color: Colors.white,
-                                    child:
-                                    Row(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
-                                      Container(
-                                        color:Colors.black12,
-                                        padding: EdgeInsets.only(top: 10,left:25,right:25,bottom: 10),
-
-                                        child:   InkWell(
-                                          onTap: (){
-                                            _cont.changeView(LocalDataStrings.MyProfile);
-                                          },
-
-                                          child:
-                                          Icon(Icons.person,color:  _cont.showView == LocalDataStrings.MyProfile
-                                              ? ConstStyles.OrangeColor : ConstStyles.TextColor,),
-
-
-                                        ),
-
-                                      ),
+                                        Container(
+                                            child: Column(
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                _cont.changeView(
+                                                    LocalDataStrings.MyProfile);
+                                              },
+                                              child: Icon(
+                                                Icons.person,
+                                                color: _cont.showView ==
+                                                        LocalDataStrings
+                                                            .MyProfile
+                                                    ? ConstStyles.OrangeColor
+                                                    : ConstStyles.TextColor,
+                                              ),
+                                            ),
+                                            CustomText(
+                                                txt: 'MyProfileData'.tr,
+                                                txtColor: _cont.showView ==
+                                                        LocalDataStrings
+                                                            .MyProfile
+                                                    ? ConstStyles.OrangeColor
+                                                    : ConstStyles.TextColor,
+                                                fontSize: 12),
+                                          ],
+                                        )),
                                         //TODO My Courses
                                         Container(
-                                          padding: EdgeInsets.only(top: 10,left:30,right:30,bottom: 10),
-
-                                          child: InkWell(
-                                            onTap: (){
-                                              _cont.changeView(LocalDataStrings.MyCourses);
-                                            },
-
-
-                                               child:
-                                                  Icon(Icons.dvr,color:  _cont.showView == LocalDataStrings.MyCourses
-                                                      ? ConstStyles.OrangeColor : ConstStyles.TextColor,),
-
-
-
-
-                                          ),
-                                        ),
+                                            child: Column(
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                _cont.changeView(
+                                                    LocalDataStrings.MyCourses);
+                                              },
+                                              child: Icon(
+                                                Icons.dvr,
+                                                color: _cont.showView ==
+                                                        LocalDataStrings
+                                                            .MyCourses
+                                                    ? ConstStyles.OrangeColor
+                                                    : ConstStyles.TextColor,
+                                              ),
+                                            ),
+                                            CustomText(
+                                              txt: 'MyCourses'.tr,
+                                              txtColor: _cont.showView ==
+                                                      LocalDataStrings.MyCourses
+                                                  ? ConstStyles.OrangeColor
+                                                  : ConstStyles.TextColor,
+                                              fontSize: 12,
+                                            ),
+                                          ],
+                                        )),
 
                                         //TODO My Classes
-                                      Container(
-                                          padding: EdgeInsets.only(top: 10,left:20,right:20,bottom: 10),
-color: Colors.black12,
-
-                                        child:  InkWell(
-                                          onTap: (){
-                                            _cont.changeView(LocalDataStrings.MyClasses);
-                                          },
-
-                                          child:
-                                          Icon(Icons.live_tv,color:  _cont.showView == LocalDataStrings.MyClasses
-                                              ? ConstStyles.OrangeColor : ConstStyles.TextColor,),
-
-
-
-                                        ),
-                                      ),
+                                        Container(
+                                            child: Column(
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                _cont.changeView(
+                                                    LocalDataStrings.MyClasses);
+                                              },
+                                              child: Icon(
+                                                Icons.live_tv,
+                                                color: _cont.showView ==
+                                                        LocalDataStrings
+                                                            .MyClasses
+                                                    ? ConstStyles.OrangeColor
+                                                    : ConstStyles.TextColor,
+                                              ),
+                                            ),
+                                            CustomText(
+                                                txt: 'MyClasses'.tr,
+                                                txtColor: _cont.showView ==
+                                                        LocalDataStrings
+                                                            .MyClasses
+                                                    ? ConstStyles.OrangeColor
+                                                    : ConstStyles.TextColor,
+                                                fontSize: 12),
+                                          ],
+                                        )),
 
                                         //TODO My Private Classes
                                         Container(
-                                          padding: EdgeInsets.only(top: 10,left:25,right:25,bottom: 10),
-
-                                          child:  InkWell(
-                                            onTap: (){
-                                              _cont.changeView(LocalDataStrings.MyPrivateClasses);
-                                            },
-
-                                              child:
-                                                  Icon(Icons.live_tv,color:  _cont.showView == LocalDataStrings.MyPrivateClasses
-                                                      ? ConstStyles.OrangeColor : ConstStyles.TextColor,),
-
-
-                                          ),
-
-                                        )
-
+                                            child: Column(
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                _cont.changeView(
+                                                    LocalDataStrings
+                                                        .MyPrivateClasses);
+                                              },
+                                              child: Icon(
+                                                Icons.live_tv,
+                                                color: _cont.showView ==
+                                                        LocalDataStrings
+                                                            .MyPrivateClasses
+                                                    ? ConstStyles.OrangeColor
+                                                    : ConstStyles.TextColor,
+                                              ),
+                                            ),
+                                            CustomText(
+                                                txt: 'MyPrivateClasses'.tr,
+                                                txtColor: _cont.showView ==
+                                                        LocalDataStrings
+                                                            .MyPrivateClasses
+                                                    ? ConstStyles.OrangeColor
+                                                    : ConstStyles.TextColor,
+                                                fontSize: 12),
+                                          ],
+                                        ))
                                       ],
                                     ),
                                   ),
-
-                                       Row(
-                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                         children: [
-
-                                           CustomText(txt: 'MyProfileData'.tr,
-                                             txtColor: _cont.showView == LocalDataStrings.MyProfile
-                                                 ? ConstStyles.OrangeColor : ConstStyles.TextColor,fontSize: 12),
-
-                                           CustomText(txt: 'MyCourses'.tr,
-                                             txtColor: _cont.showView == LocalDataStrings.MyCourses
-                                                 ? ConstStyles.OrangeColor : ConstStyles.TextColor ,fontSize: 12,),
-                                         Padding(
-                                           padding: EdgeInsets.only(right: 15),
-                                           child:   CustomText(txt: 'MyClasses'.tr,
-                                               txtColor:  _cont.showView == LocalDataStrings.MyClasses
-                                                   ? ConstStyles.OrangeColor : ConstStyles.TextColor,fontSize: 12),
-                                         ),
-                                           CustomText(txt: 'MyPrivateClasses'.tr,
-                                             txtColor: _cont.showView == LocalDataStrings.MyPrivateClasses
-                                                 ? ConstStyles.OrangeColor : ConstStyles.TextColor ,fontSize: 12),
-                                         ],
-                                       )
-                                      ],
-                                    ),
-                                  ),
-
-                                  //TODO Profile Data
-                                  Container(
-                                    margin: EdgeInsets.only(left: localW * 0.1,right: localW * 0.1,top: localH*0.05,bottom: localH * 0.1),
-                                    padding: EdgeInsets.only(left: localW * 0.05,top: localH * 0.05),
-                                    color: ConstStyles.WhiteColor,
-                                    child: GetBuilder<StudProfCont>(
-                                      builder: (_){
-                                        //TODO Student Profile Data
-                                        if(_cont.showView == LocalDataStrings.MyProfile){
-                                          return profileData(localH, localW);
-                                        }
-                                        //TODO My Courses
-                                        else if(_cont.showView == LocalDataStrings.MyCourses){
-                                          return Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              CustomText(txtColor: ConstStyles.BlackColor,txt: 'Courses'.tr,fontSize: localW*0.06,),
-                                              Divider(
-                                                thickness: 1,
-                                                color: ConstStyles.BlackColor,
-                                              ),
-                                              SizedBox(height: localH * 0.03,),
-                                              SizedBox(
-                                                width: localW,
-                                                height: localH * 0.6,
-                                                child: ListView.builder(
-                                                  itemCount: _cont.coursesList != null ? _cont.coursesList.length : 0,
-                                                  itemBuilder: (context,index){
-                                                    if(_cont.coursesList.length > 0){
-                                                      return InkWell(
-                                                          onTap: (){
-                                                            Get.to( () => CourseDetails(_cont.coursesList[index].key));
-                                                          },
-                                                          child: myCoursesItem(localH * 0.6, localW,_cont.coursesList[index]));
-                                                    }else{
-                                                      return SizedBox(
-                                                        width: localW,
-                                                        height: localH * 0.6,
-                                                        child: LogoContainer(),
-                                                      );
-                                                    }
-                                                  },),),
-                                            ],
-                                          );
-                                        }
-                                        //TODO My Classes
-                                        else if(_cont.showView == LocalDataStrings.MyClasses){
-                                          return Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              AutoTextSize(
-                                                textColor: ConstStyles.BlackColor,
-                                                text: 'Classes'.tr,
-                                                fontWeight: FontWeight.bold,
-                                                size: localW*0.06,),
-                                              Divider(
-                                                thickness: 1,
-                                                color: ConstStyles.BlackColor,
-                                              ),
-                                              SizedBox(height: localH * 0.015,),
-
-                                              SizedBox(
-                                                width: localW,
-                                                height: localH * 0.33,
-                                                child: ListView.builder(
-                                                    itemCount: _cont.classesList != null
-                                                        ? _cont.classesList.length
-                                                        : 0,
-                                                    itemBuilder: (context,index){
-                                                      if(_cont.classesList.length > 0){
-                                                        return myClassesItem(localH * 0.6, localW,_cont.classesList[index]);
-                                                      }else{
-                                                        return SizedBox(
-                                                          width: localW,
-                                                          height: localH * 0.6,
-                                                          child: LogoContainer(),
-                                                        );
-                                                      }
-                                                    }),
-                                              )
-
-                                            ],
-                                          );
-                                        }
-                                        //TODO Private Classes
-                                        else{
-                                          return Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              AutoTextSize(
-                                                textColor: ConstStyles.BlackColor,
-                                                text: 'MyPrivateClasses'.tr,
-                                                fontWeight: FontWeight.bold,
-                                                size: localW*0.06,),
-                                              Divider(
-                                                thickness: 1,
-                                                color: ConstStyles.BlackColor,
-                                              ),
-                                              SizedBox(height: localH * 0.015,),
-
-                                              SizedBox(
-                                                width: localW,
-                                                height: localH * 0.33,
-                                                child: ListView.builder(
-                                                    itemCount: _cont.privateClassesList != null
-                                                        ? _cont.privateClassesList.length
-                                                        : 0,
-                                                    itemBuilder: (context,index){
-                                                      if(_cont.privateClassesList.length > 0){
-                                                        return myPrivateClassesItem(localH * 0.6, localW,_cont.privateClassesList[index]);
-                                                      }else{
-                                                        return SizedBox(
-                                                          width: localW,
-                                                          height: localH * 0.6,
-                                                          child: LogoContainer(),
-                                                        );
-                                                      }
-                                                    }),
-                                              )
-
-                                            ],
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  )
                                 ],
-                              );
-                            });
-                      },
-                    )
-                );
-              },
-            ),
-          );
-        },),
+                              ),
+                            ),
+
+                            //TODO Profile Data
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: localW * 0.1,
+                                  right: localW * 0.1,
+                                  top: localH * 0.05,
+                                  bottom: localH * 0.1),
+                              padding: EdgeInsets.only(
+                                  left: localW * 0.05, top: localH * 0.05),
+                              color: ConstStyles.WhiteColor,
+                              child: GetBuilder<StudProfCont>(
+                                builder: (_) {
+                                  //TODO Student Profile Data
+
+                                  //TODO My Courses
+                                  if (_cont.showView ==
+                                      LocalDataStrings.MyCourses) {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CustomText(
+                                          txtColor: ConstStyles.BlackColor,
+                                          txt: 'Courses'.tr,
+                                          fontSize: localW * 0.06,
+                                        ),
+                                        Divider(
+                                          thickness: 1,
+                                          color: ConstStyles.BlackColor,
+                                        ),
+                                        SizedBox(
+                                          height: localH * 0.03,
+                                        ),
+                                        SizedBox(
+                                          width: localW,
+                                          height: localH * 0.6,
+                                          child: ListView.builder(
+                                            itemCount: _cont.coursesList != null
+                                                ? _cont.coursesList.length
+                                                : 0,
+                                            itemBuilder: (context, index) {
+                                              if (_cont.coursesList.length >
+                                                  0) {
+                                                return InkWell(
+                                                    onTap: () {
+                                                      Get.to(() =>
+                                                          CourseDetails(_cont
+                                                              .coursesList[
+                                                                  index]
+                                                              .key));
+                                                    },
+                                                    child: myCoursesItem(
+                                                        localH * 0.6,
+                                                        localW,
+                                                        _cont.coursesList[
+                                                            index]));
+                                              } else {
+                                                return SizedBox(
+                                                  width: localW,
+                                                  height: localH * 0.6,
+                                                  child: LogoContainer(),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                  else if (_cont.showView ==
+                                      LocalDataStrings.MyProfile) {
+                                    return profileData(localH, localW);
+                                  }
+                                  //TODO My Classes
+                                  else if (_cont.showView ==
+                                      LocalDataStrings.MyClasses) {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        AutoTextSize(
+                                          textColor: ConstStyles.BlackColor,
+                                          text: 'Classes'.tr,
+                                          fontWeight: FontWeight.bold,
+                                          size: localW * 0.06,
+                                        ),
+                                        Divider(
+                                          thickness: 1,
+                                          color: ConstStyles.BlackColor,
+                                        ),
+                                        SizedBox(
+                                          height: localH * 0.015,
+                                        ),
+                                        SizedBox(
+                                          width: localW,
+                                          height: localH * 0.33,
+                                          child: ListView.builder(
+                                              itemCount:
+                                                  _cont.classesList != null
+                                                      ? _cont.classesList.length
+                                                      : 0,
+                                              itemBuilder: (context, index) {
+                                                if (_cont.classesList.length >
+                                                    0) {
+                                                  return myClassesItem(
+                                                      localH * 0.6,
+                                                      localW,
+                                                      _cont.classesList[index]);
+                                                } else {
+                                                  return SizedBox(
+                                                    width: localW,
+                                                    height: localH * 0.6,
+                                                    child: LogoContainer(),
+                                                  );
+                                                }
+                                              }),
+                                        )
+                                      ],
+                                    );
+                                  }
+                                  //TODO Private Classes
+                                  else {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        AutoTextSize(
+                                          textColor: ConstStyles.BlackColor,
+                                          text: 'MyPrivateClasses'.tr,
+                                          fontWeight: FontWeight.bold,
+                                          size: localW * 0.06,
+                                        ),
+                                        Divider(
+                                          thickness: 1,
+                                          color: ConstStyles.BlackColor,
+                                        ),
+                                        SizedBox(
+                                          height: localH * 0.015,
+                                        ),
+                                        SizedBox(
+                                          width: localW,
+                                          height: localH * 0.33,
+                                          child: ListView.builder(
+                                              itemCount:
+                                                  _cont.privateClassesList !=
+                                                          null
+                                                      ? _cont.privateClassesList
+                                                          .length
+                                                      : 0,
+                                              itemBuilder: (context, index) {
+                                                if (_cont.privateClassesList
+                                                        .length >
+                                                    0) {
+                                                  return myPrivateClassesItem(
+                                                      localH * 0.6,
+                                                      localW,
+                                                      _cont.privateClassesList[
+                                                          index]);
+                                                } else {
+                                                  return SizedBox(
+                                                    width: localW,
+                                                    height: localH * 0.6,
+                                                    child: LogoContainer(),
+                                                  );
+                                                }
+                                              }),
+                                        )
+                                      ],
+                                    );
+                                  }
+                                },
+                              ),
+                            )
+                          ],
+                        );
+                      });
+                    },
+                  ));
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
-
-
   }
 
-  Widget profileData(localH,localW){
+  Widget profileData(localH, localW) {
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomText(txtColor: ConstStyles.BlackColor,txt: 'EditProfileData'.tr,fontSize: localW*0.06,),
+          CustomText(
+            txtColor: ConstStyles.BlackColor,
+            txt: 'EditProfileData'.tr,
+            fontSize: localW * 0.06,
+          ),
           Divider(
             thickness: 1,
             color: ConstStyles.BlackColor,
           ),
-          SizedBox(height: localH * 0.03,),
+          SizedBox(
+            height: localH * 0.03,
+          ),
 
           //TODO Name
           CustomProfForm(
             myController: TextEditingController(
-                text: _cont.name == null ? _cont.studProfResData.name : _cont.name
-            ),
+                text: _cont.name == null
+                    ? _cont.studProfResData.name
+                    : _cont.name),
             obscureText: false,
             keybord: TextInputType.text,
-            onChange: (v){
+            onChange: (v) {
               _cont.name = v;
             },
-            onSave: (v){
+            onSave: (v) {
               _cont.name = v;
             },
           ),
 
-          SizedBox(height: localH * 0.02,),
+          SizedBox(
+            height: localH * 0.02,
+          ),
 
           //TODO Email
           CustomProfForm(
             myController: TextEditingController(
-                text:_cont.email == null ? _cont.studProfResData.email : _cont.email
-            ),
+                text: _cont.email == null
+                    ? _cont.studProfResData.email
+                    : _cont.email),
             obscureText: false,
             keybord: TextInputType.text,
-            onSave: (v){
+            onSave: (v) {
               _cont.email = v;
             },
-            onChange: (v){
-              _cont.email = v ;
+            onChange: (v) {
+              _cont.email = v;
             },
           ),
 
-          SizedBox(height: localH * 0.02,),
+          SizedBox(
+            height: localH * 0.02,
+          ),
 
           //TODO Phone
           CustomProfForm(
             myController: TextEditingController(
-                text: _cont.phone == null ? _cont.studProfResData.phone : _cont.phone.toString()
-            ),
+                text: _cont.phone == null
+                    ? _cont.studProfResData.phone
+                    : _cont.phone.toString()),
             obscureText: false,
             keybord: TextInputType.number,
-            onSave: (v){
+            onSave: (v) {
               _cont.phone = v;
             },
-            onChange: (v){
+            onChange: (v) {
               _cont.phone = v;
             },
           ),
 
-          SizedBox(height: localH * 0.02,),
+          SizedBox(
+            height: localH * 0.02,
+          ),
 
           //TODO old Password
           CustomProfForm(
             myController: TextEditingController(
-                text: _cont.oldPassword == null ? null : _cont.oldPassword
-            ),
+                text: _cont.oldPassword == null ? null : _cont.oldPassword),
             hint: 'Old Password',
             hintColor: ConstStyles.TextColor,
             obscureText: true,
             keybord: TextInputType.text,
-            onSave: (v){
+            onSave: (v) {
               _cont.oldPassword = v;
             },
-            onChange: (v){
+            onChange: (v) {
               _cont.oldPassword = v;
             },
           ),
 
-          SizedBox(height: localH * 0.02,),
+          SizedBox(
+            height: localH * 0.02,
+          ),
 
           //TODO New Password
           CustomProfForm(
             myController: TextEditingController(
-                text: _cont.newPassword == null ? null : _cont.newPassword
-            ),
+                text: _cont.newPassword == null ? null : _cont.newPassword),
             hint: 'New Password',
             obscureText: true,
             keybord: TextInputType.text,
-            onSave: (v){
+            onSave: (v) {
               _cont.newPassword = v;
             },
-            onChange: (v){
+            onChange: (v) {
               _cont.newPassword = v;
             },
           ),
 
-          SizedBox(height: localH * 0.02,),
+          SizedBox(
+            height: localH * 0.02,
+          ),
 
           //TODO new confirm Password
           CustomProfForm(
             myController: TextEditingController(
-                text: _cont.newPassword == null ? null : _cont.newPassword
-            ),
+                text: _cont.newPassword == null ? null : _cont.newPassword),
             hint: 'New Password Confirmation',
             obscureText: true,
             keybord: TextInputType.text,
-            onSave: (v){
+            onSave: (v) {
               _cont.newConfPass = v;
             },
-            onChange: (v){
+            onChange: (v) {
               _cont.newConfPass = v;
             },
           ),
 
-          OrangeBtn(btnColor: ConstStyles.BlueColor,text: 'Edit'.tr,onClick: ()async{
-            _formKey.currentState.save();
-            _cont.editStudProfReq = EditStudProfReq(_cont.name, _cont.email,
-                _cont.oldPassword, _cont.newPassword, _cont.phone,_cont.newConfPass);
-            print('$LOGD Edit Btn ::: ${_cont.listErrorMessage.length}');
-            if(await _cont.editMainProfileData(_cont.editStudProfReq)){
-              Get.snackbar('', '',backgroundColor: ConstStyles.DarkColor,
-                  colorText: ConstStyles.WhiteColor,
-                  titleText: CustomText(txt: 'DataUpdatedSuccessfully'.tr,
-                    txtAlign: TextAlign.center,));
-              _cont.getMainProfData(_cont.token);
-            }else{
-              Get.snackbar('', '',backgroundColor: ConstStyles.DarkColor,
-                  colorText: ConstStyles.WhiteColor,
-                  titleText: CustomText(txt: _cont.listErrorMessage[0],
-                    txtAlign: TextAlign.center,));
-            }
-
-          },),
-
+          OrangeBtn(
+            btnColor: ConstStyles.BlueColor,
+            text: 'Edit'.tr,
+            onClick: () async {
+              _formKey.currentState.save();
+              _cont.editStudProfReq = EditStudProfReq(
+                  _cont.name,
+                  _cont.email,
+                  _cont.oldPassword,
+                  _cont.newPassword,
+                  _cont.phone,
+                  _cont.newConfPass);
+              print('$LOGD Edit Btn ::: ${_cont.listErrorMessage.length}');
+              if (await _cont.editMainProfileData(_cont.editStudProfReq)) {
+                Get.snackbar('', '',
+                    backgroundColor: ConstStyles.DarkColor,
+                    colorText: ConstStyles.WhiteColor,
+                    titleText: CustomText(
+                      txt: 'DataUpdatedSuccessfully'.tr,
+                      txtAlign: TextAlign.center,
+                    ));
+                _cont.getMainProfData(_cont.token);
+              } else {
+                Get.snackbar('', '',
+                    backgroundColor: ConstStyles.DarkColor,
+                    colorText: ConstStyles.WhiteColor,
+                    titleText: CustomText(
+                      txt: _cont.listErrorMessage[0],
+                      txtAlign: TextAlign.center,
+                    ));
+              }
+            },
+          ),
         ],
       ),
     );
   }
 
-  Widget myCoursesItem(localH,localW,MyCoursesDataList item){
+  Widget myCoursesItem(localH, localW, MyCoursesDataList item) {
     return Container(
       margin: EdgeInsets.only(bottom: localH * 0.02),
-      height: localH ,
+      height: localH,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -500,15 +601,14 @@ color: Colors.black12,
             height: localH * 0.35,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                    EndPoints.ImageUrl + item.image.toString()),
+                image: NetworkImage(EndPoints.ImageUrl + item.image.toString()),
                 fit: BoxFit.fill,
               ),
             ),
           ),
-
-          SizedBox(height: localH * 0.02,),
-
+          SizedBox(
+            height: localH * 0.02,
+          ),
           Container(
             height: localH * 0.46,
             width: localW,
@@ -516,14 +616,22 @@ color: Colors.black12,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 SizedBox(
                     height: localH * 0.06,
-                    child: AutoTextSize(text: item.name,textColor: ConstStyles.BlackColor,size: localW * 0.06,fontWeight: FontWeight.bold,)),
+                    child: AutoTextSize(
+                      text: item.name,
+                      textColor: ConstStyles.BlackColor,
+                      size: localW * 0.06,
+                      fontWeight: FontWeight.bold,
+                    )),
 
                 SizedBox(
                     height: localH * 0.18,
-                    child: AutoTextSize(text: item.shortDescription,textColor: ConstStyles.BlackColor,size: localW * 0.038,)),
+                    child: AutoTextSize(
+                      text: item.shortDescription,
+                      textColor: ConstStyles.BlackColor,
+                      size: localW * 0.038,
+                    )),
 
                 Container(
                   width: localW,
@@ -532,65 +640,74 @@ color: Colors.black12,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      GetBuilder<StudProfCont>(builder: (_){
-                        if(item.discountPrice == 0 || item.discountPrice == null){
+                      GetBuilder<StudProfCont>(builder: (_) {
+                        if (item.discountPrice == 0 ||
+                            item.discountPrice == null) {
                           return Container();
-                        }else{
+                        } else {
                           return SizedBox(
                             width: localW * 0.2,
                             height: localH * 0.05,
                             child: Stack(
                               fit: StackFit.expand,
                               children: [
-
                                 Positioned.fill(
                                   child: Align(
-                                    alignment: Alignment
-                                        .centerLeft,
+                                    alignment: Alignment.centerLeft,
                                     child: SizedBox(
                                       width: localW * 0.2,
                                       child: CustomText(
                                         txtAlign: TextAlign.center,
-                                        txt: item.discountPrice == null ? '':
-                                        item.discountPrice.toString(),
-                                        txtColor: Colors
-                                            .green,
-                                        fontSize:
-                                        localW *
-                                            0.05,
+                                        txt: item.discountPrice == null
+                                            ? ''
+                                            : item.discountPrice.toString(),
+                                        txtColor: Colors.green,
+                                        fontSize: localW * 0.05,
                                       ),
-                                    ),),),
-
+                                    ),
+                                  ),
+                                ),
                                 Positioned.fill(
                                     child: Align(
-                                      alignment: Alignment.center,
-                                      child: SizedBox(
-                                        width: localW * 0.15,
-                                        child: Divider(
-                                          thickness: 1,
-                                          color: Colors.green,
-                                        ),
-                                      ),
-                                    )),
+                                  alignment: Alignment.center,
+                                  child: SizedBox(
+                                    width: localW * 0.15,
+                                    child: Divider(
+                                      thickness: 1,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                )),
                               ],
                             ),
                           );
                         }
                       }),
-
-                      AutoTextSize(text: item.price == null ? 0.toString():
-                      item.price.toString()
-                        ,textColor: Colors.green,size: localW * 0.038,fontWeight: FontWeight.bold,),
-
-                      AutoTextSize(text: ' EGP'
-                        ,textColor: Colors.green,size: localW * 0.038,fontWeight: FontWeight.bold,),
+                      AutoTextSize(
+                        text: item.price == null
+                            ? 0.toString()
+                            : item.price.toString(),
+                        textColor: Colors.green,
+                        size: localW * 0.038,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      AutoTextSize(
+                        text: ' EGP',
+                        textColor: Colors.green,
+                        size: localW * 0.038,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ],
                   ),
                 ),
 
                 SizedBox(
                     height: localH * 0.06,
-                    child: AutoTextSize(text: item.level,textColor: ConstStyles.BlackColor,size: localW * 0.038,)),
+                    child: AutoTextSize(
+                      text: item.level,
+                      textColor: ConstStyles.BlackColor,
+                      size: localW * 0.038,
+                    )),
 
                 //TODO Teacher
                 Container(
@@ -600,62 +717,62 @@ color: Colors.black12,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        backgroundColor:
-                        ConstStyles
-                            .TextColor,
-                        child: GetBuilder<StudProfCont>(builder: (_){
-                          if(item.teacherImg != null){
-                            return CustomNetworkImage(url: '${EndPoints.ImageUrl}${item.teacherImg}',newImage: (){},radius: 50.0,);
-                          }else {
-                            return LogoContainer();
-                          }
-                        },),),
-
+                        backgroundColor: ConstStyles.TextColor,
+                        child: GetBuilder<StudProfCont>(
+                          builder: (_) {
+                            if (item.teacherImg != null) {
+                              return CustomNetworkImage(
+                                url: '${EndPoints.ImageUrl}${item.teacherImg}',
+                                newImage: () {},
+                                radius: 50.0,
+                              );
+                            } else {
+                              return LogoContainer();
+                            }
+                          },
+                        ),
+                      ),
                       SizedBox(
                         width: localW * 0.03,
                       ),
-                      GetBuilder<StudProfCont>(builder: (_){
-                        if(item.teacher.length > 0){
+                      GetBuilder<StudProfCont>(builder: (_) {
+                        if (item.teacher.length > 0) {
                           return CustomText(
                             txt: item.teacher[0].name,
                             txtColor: ConstStyles.TextColor,
                             fontSize: localW * 0.04,
                           );
-                        }else{
+                        } else {
                           return CustomText(
                             txt: '',
                             txtColor: ConstStyles.TextColor,
                             fontSize: localW * 0.04,
                           );
                         }
-
                       }),
-
-                      GetBuilder<StudProfCont>(builder: (_){
-                        if(item.teacher.length > 0){
+                      GetBuilder<StudProfCont>(builder: (_) {
+                        if (item.teacher.length > 0) {
                           return CustomText(
-                            txt: item.teacher[0].qualifications == null ? '' : item.teacher[0].qualifications,
+                            txt: item.teacher[0].qualifications == null
+                                ? ''
+                                : item.teacher[0].qualifications,
                             txtColor: ConstStyles.TextColor,
                             fontSize: localW * 0.04,
                           );
-                        }else{
+                        } else {
                           return CustomText(
                             txt: '',
                             txtColor: ConstStyles.TextColor,
                             fontSize: localW * 0.04,
                           );
                         }
-
                       }),
-
                     ],
                   ),
                 ),
               ],
             ),
           ),
-
-
           Container(
             height: localH * 0.02,
             child: Divider(
@@ -663,68 +780,70 @@ color: Colors.black12,
               color: ConstStyles.BlackColor,
             ),
           ),
-
           Center(
             child: OrangeBtn(
               btnColor: ConstStyles.BlueColor,
               text: 'Score',
-              onClick: (){
+              onClick: () {
                 return Get.defaultDialog(
-                  title : 'YourScore',
-                  content:Column(
+                  title: 'YourScore',
+                  content: Column(
                     children: [
-                      SizedBox(height:10),
+                      SizedBox(height: 10),
                       FlatButton(
                         color: Colors.amber,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Text("Placement"),
-                        onPressed: (){
+                        onPressed: () {
                           return Get.defaultDialog(
-                            title : 'Placement',
+                            title: 'Placement',
                             content: Column(
                               children: [
-                                SizedBox(height:10),
+                                SizedBox(height: 10),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text("Score: "),
                                     Text("${item.placement['score']} /"),
                                     Text("${item.placement['total']}"),
-                                    SizedBox(width:15),
-                                    "${item.placement['pass']}" == "0" ? Text("X",style: TextStyle(color: Colors.red)) : Icon(Icons.done,color: Colors.green),
+                                    SizedBox(width: 15),
+                                    "${item.placement['pass']}" == "0"
+                                        ? Text("X",
+                                            style: TextStyle(color: Colors.red))
+                                        : Icon(Icons.done, color: Colors.green),
                                   ],
                                 ),
-                                SizedBox(height:10),
+                                SizedBox(height: 10),
                                 Container(
                                   width: localW,
                                   child: FlatButton(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                       ),
                                       color: Colors.red,
                                       child: Text("Back"),
-                                      onPressed: (){
+                                      onPressed: () {
                                         Get.back();
-                                      }
-                                  ),
+                                      }),
                                 ),
                               ],
                             ),
                           );
                         },
                       ),
-                      SizedBox(height:10),
+                      SizedBox(height: 10),
                       FlatButton(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         color: Colors.amber,
                         child: Text("Final Exam"),
-                        onPressed: (){
+                        onPressed: () {
                           return Get.defaultDialog(
-                            title : 'Final Exam',
+                            title: 'Final Exam',
                             content: Column(
                               children: [
                                 Row(
@@ -733,30 +852,33 @@ color: Colors.black12,
                                     Text("Score: "),
                                     Text("${item.finalExam['score']} /"),
                                     Text("${item.finalExam['total']}"),
-                                    SizedBox(width:15),
-                                    "${item.finalExam['pass']}" == "0" ? Text("X",style: TextStyle(color: Colors.red)) : Icon(Icons.done,color: Colors.green),
+                                    SizedBox(width: 15),
+                                    "${item.finalExam['pass']}" == "0"
+                                        ? Text("X",
+                                            style: TextStyle(color: Colors.red))
+                                        : Icon(Icons.done, color: Colors.green),
                                   ],
                                 ),
-                                SizedBox(height:10),
+                                SizedBox(height: 10),
                                 Container(
                                   width: localW,
                                   child: FlatButton(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                       ),
                                       color: Colors.red,
                                       child: Text("Back"),
-                                      onPressed: (){
+                                      onPressed: () {
                                         Get.back();
-                                      }
-                                  ),
+                                      }),
                                 ),
                               ],
                             ),
                           );
                         },
                       ),
-                      SizedBox(height:10),
+                      SizedBox(height: 10),
                       Container(
                         width: localW,
                         child: FlatButton(
@@ -765,10 +887,9 @@ color: Colors.black12,
                             ),
                             color: Colors.red,
                             child: Text("Back"),
-                            onPressed: (){
+                            onPressed: () {
                               Get.back();
-                            }
-                        ),
+                            }),
                       ),
                     ],
                   ),
@@ -776,13 +897,12 @@ color: Colors.black12,
               },
             ),
           ),
-
         ],
       ),
     );
   }
 
-  Widget myClassesItem(localH,localW,MyClassesDataList item){
+  Widget myClassesItem(localH, localW, MyClassesDataList item) {
     return Container(
       margin: EdgeInsets.only(bottom: localH * 0.05),
       child: Column(
@@ -792,51 +912,100 @@ color: Colors.black12,
           //TODO Teacher Name
           Row(
             children: [
-              AutoTextSize(text: "${'TeacherName'.tr} : ",fontWeight: FontWeight.bold,textColor: ConstStyles.BlackColor,),
-              AutoTextSize(text: item.teacher[0] == null ? ' ' : item.teacher[0].name,fontWeight: FontWeight.bold,),
+              AutoTextSize(
+                text: "${'TeacherName'.tr} : ",
+                fontWeight: FontWeight.bold,
+                textColor: ConstStyles.BlackColor,
+              ),
+              AutoTextSize(
+                text: item.teacher[0] == null ? ' ' : item.teacher[0].name,
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
 
-          SizedBox(height: localH * 0.012,),
+          SizedBox(
+            height: localH * 0.012,
+          ),
           //TODO Course Name
           Row(
             children: [
-              AutoTextSize(text: "${'CourseName'.tr} : ",fontWeight: FontWeight.bold,textColor: ConstStyles.BlackColor,),
-              AutoTextSize(text: item.name,fontWeight: FontWeight.bold,),
+              AutoTextSize(
+                text: "${'CourseName'.tr} : ",
+                fontWeight: FontWeight.bold,
+                textColor: ConstStyles.BlackColor,
+              ),
+              AutoTextSize(
+                text: item.name,
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
-          SizedBox(height: localH * 0.012,),
+          SizedBox(
+            height: localH * 0.012,
+          ),
           //TODO Weeks
           Row(
             children: [
-              AutoTextSize(text: "${'WeeksNumber'.tr} : ",fontWeight: FontWeight.bold,textColor: ConstStyles.BlackColor,),
-              AutoTextSize(text: item.weeks.toString(),fontWeight: FontWeight.bold,),
+              AutoTextSize(
+                text: "${'WeeksNumber'.tr} : ",
+                fontWeight: FontWeight.bold,
+                textColor: ConstStyles.BlackColor,
+              ),
+              AutoTextSize(
+                text: item.weeks.toString(),
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
-          SizedBox(height: localH * 0.012,),
+          SizedBox(
+            height: localH * 0.012,
+          ),
           //TODO Lesson
           Row(
             children: [
-              AutoTextSize(text: "${'LessonsNumber'.tr} : ",fontWeight: FontWeight.bold,textColor: ConstStyles.BlackColor,),
-              AutoTextSize(text: item.lessons.toString(),fontWeight: FontWeight.bold,),
+              AutoTextSize(
+                text: "${'LessonsNumber'.tr} : ",
+                fontWeight: FontWeight.bold,
+                textColor: ConstStyles.BlackColor,
+              ),
+              AutoTextSize(
+                text: item.lessons.toString(),
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
-          SizedBox(height: localH * 0.012,),
+          SizedBox(
+            height: localH * 0.012,
+          ),
           //TODO Next Lesson
           Row(
             children: [
-              AutoTextSize(text: "${'NextLesson'.tr} : ",fontWeight: FontWeight.bold,textColor: ConstStyles.BlackColor,),
-              AutoTextSize(text: '${item.lessons+1}',fontWeight: FontWeight.bold,),
+              AutoTextSize(
+                text: "${'NextLesson'.tr} : ",
+                fontWeight: FontWeight.bold,
+                textColor: ConstStyles.BlackColor,
+              ),
+              AutoTextSize(
+                text: '${item.lessons + 1}',
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
-          SizedBox(height: localH * 0.02,),
-          OrangeBtn(text: 'Show'.tr, onClick: (){
-            _cont.showLesson(item.key,item.name);
-          },btnColor: ConstStyles.GreenColor,),
+          SizedBox(
+            height: localH * 0.02,
+          ),
+          OrangeBtn(
+            text: 'Show'.tr,
+            onClick: () {
+              _cont.showLesson(item.key, item.name);
+            },
+            btnColor: ConstStyles.GreenColor,
+          ),
 
           Container(
             height: localH * 0.02,
-            margin: EdgeInsets.only(left: localW * 0.08,right: localW * 0.08),
+            margin: EdgeInsets.only(left: localW * 0.08, right: localW * 0.08),
             child: Divider(
               thickness: 1,
               color: ConstStyles.BlackColor,
@@ -847,7 +1016,7 @@ color: Colors.black12,
     );
   }
 
-  Widget myPrivateClassesItem(localH,localW,MyPrivateClassesDataList item){
+  Widget myPrivateClassesItem(localH, localW, MyPrivateClassesDataList item) {
     return Container(
       margin: EdgeInsets.only(bottom: localH * 0.05),
       child: Column(
@@ -857,52 +1026,101 @@ color: Colors.black12,
           //TODO Teacher Name
           Row(
             children: [
-              AutoTextSize(text: "${'TeacherName'.tr} : ",fontWeight: FontWeight.bold,textColor: ConstStyles.BlackColor,),
-              AutoTextSize(text: item.teacher[0] == null ? ' ' : item.teacher,fontWeight: FontWeight.bold,),
+              AutoTextSize(
+                text: "${'TeacherName'.tr} : ",
+                fontWeight: FontWeight.bold,
+                textColor: ConstStyles.BlackColor,
+              ),
+              AutoTextSize(
+                text: item.teacher[0] == null ? ' ' : item.teacher,
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
 
-          SizedBox(height: localH * 0.012,),
+          SizedBox(
+            height: localH * 0.012,
+          ),
           //TODO Course Name
           Row(
             children: [
-              AutoTextSize(text: "${'CourseName'.tr} : ",fontWeight: FontWeight.bold,textColor: ConstStyles.BlackColor,),
-              AutoTextSize(text: item.name,fontWeight: FontWeight.bold,),
+              AutoTextSize(
+                text: "${'CourseName'.tr} : ",
+                fontWeight: FontWeight.bold,
+                textColor: ConstStyles.BlackColor,
+              ),
+              AutoTextSize(
+                text: item.name,
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
-          SizedBox(height: localH * 0.012,),
+          SizedBox(
+            height: localH * 0.012,
+          ),
           //TODO Weeks
           Row(
             children: [
-              AutoTextSize(text: "${'WeeksNumber'.tr} : ",fontWeight: FontWeight.bold,textColor: ConstStyles.BlackColor,),
-              AutoTextSize(text: item.weeks.toString(),fontWeight: FontWeight.bold,),
+              AutoTextSize(
+                text: "${'WeeksNumber'.tr} : ",
+                fontWeight: FontWeight.bold,
+                textColor: ConstStyles.BlackColor,
+              ),
+              AutoTextSize(
+                text: item.weeks.toString(),
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
-          SizedBox(height: localH * 0.012,),
+          SizedBox(
+            height: localH * 0.012,
+          ),
           //TODO Lesson
           Row(
             children: [
-              AutoTextSize(text: "${'LessonsNumber'.tr} : ",fontWeight: FontWeight.bold,textColor: ConstStyles.BlackColor,),
-              AutoTextSize(text: item.lessons.toString(),fontWeight: FontWeight.bold,),
+              AutoTextSize(
+                text: "${'LessonsNumber'.tr} : ",
+                fontWeight: FontWeight.bold,
+                textColor: ConstStyles.BlackColor,
+              ),
+              AutoTextSize(
+                text: item.lessons.toString(),
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
-          SizedBox(height: localH * 0.012,),
+          SizedBox(
+            height: localH * 0.012,
+          ),
           //TODO Next Lesson
           Row(
             children: [
-              AutoTextSize(text: "${'NextLesson'.tr} : ",fontWeight: FontWeight.bold,textColor: ConstStyles.BlackColor,),
-              AutoTextSize(text: '${item.lessons+1}',fontWeight: FontWeight.bold,),
+              AutoTextSize(
+                text: "${'NextLesson'.tr} : ",
+                fontWeight: FontWeight.bold,
+                textColor: ConstStyles.BlackColor,
+              ),
+              AutoTextSize(
+                text: '${item.lessons + 1}',
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
-          SizedBox(height: localH * 0.02,),
+          SizedBox(
+            height: localH * 0.02,
+          ),
           //TODO Show
-          OrangeBtn(text: 'Show'.tr, onClick: (){
-            _cont.showPrivateLesson(item.key,item.name);
-          },btnColor: ConstStyles.GreenColor,),
+          OrangeBtn(
+            text: 'Show'.tr,
+            onClick: () {
+              _cont.showPrivateLesson(item.key, item.name);
+            },
+            btnColor: ConstStyles.GreenColor,
+          ),
 
           Container(
             height: localH * 0.02,
-            margin: EdgeInsets.only(left: localW * 0.08,right: localW * 0.08),
+            margin: EdgeInsets.only(left: localW * 0.08, right: localW * 0.08),
             child: Divider(
               thickness: 1,
               color: ConstStyles.BlackColor,
@@ -912,5 +1130,4 @@ color: Colors.black12,
       ),
     );
   }
-
 }
